@@ -35,6 +35,9 @@
     "48": "assets/icon-48.png",
     "128": "assets/icon-128.png"
   },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
   "web_accessible_resources": [
     {
       "resources": ["algorithm_shield_engine_bg.wasm"],
