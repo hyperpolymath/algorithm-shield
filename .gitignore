@@ -38,3 +38,6 @@ pkg/
 # npm (only for ReScript tooling)
 package-lock.json
 node_modules/
+
+# Private correspondence (never sync)
+correspondence/

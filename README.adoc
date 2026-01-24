@@ -27,6 +27,36 @@ _Like a VPN for your browsing behavior._
 
 ---
 
+== Why This Matters
+
+Filter bubbles aren't just an annoyance - they're **fragmenting our shared reality**.
+
+When algorithms only show you content similar to what you've already seen, you lose the ability to understand people who think differently. Democratic discourse becomes impossible when we can't even agree on basic facts. Echo chambers don't just reinforce beliefs - they make it harder to recognize we're even in one.
+
+**Most privacy tools try to hide from algorithms.** Algorithm Shield takes a different approach: it **confuses them**.
+
+Instead of blocking trackers or masking your identity, it makes your behavior unpredictable. The algorithm can't pigeonhole you if you're constantly crossing boundaries it didn't expect. You're not invisible - you're **a shapeshifter**.
+
+=== What Makes This Different
+
+**Mathematically Proven Safety**: Unlike most software that's "tested and seems fine," Algorithm Shield uses formal verification. Core operations are mathematically proven to be crash-free (via https://github.com/hyperpolymath/proven[proven library]). Future versions will use https://github.com/hyperpolymath/ephapax[Ephapax] with Coq proofs for memory safety. When we say "unbreakable code," we mean it literally.
+
+**Narratable by Design**: You always know what Algorithm Shield is doing and why. Every action comes with a human-readable explanation. No mysterious black boxes - just transparent tools you can understand and control.
+
+**Privacy-Preserving**: All processing happens locally in your browser. No cloud services, no data collection, no tracking. Your browsing patterns stay yours.
+
+**Respectful of Agency**: The tool asks permission before taking action. You're in control - Algorithm Shield is your assistant, not your replacement.
+
+**Part of a Verified Ecosystem**: Algorithm Shield integrates with a broader ecosystem of formally verified tools - proven (crash-proof operations), Ephapax (linear types), Svalinn/Vörðr/Cerro Torre (verified container stack). It's not just one secure tool - it's part of a coherent vision where **mathematical certainty replaces "we think it's safe."**
+
+=== The Bigger Picture
+
+If platforms are using sophisticated algorithms to profile and manipulate us, we need tools with the same level of sophistication to resist. Not to hide, not to opt out completely - but to **stay human in an algorithmic world**.
+
+The internet should expand your worldview, not narrow it. Algorithm Shield helps make that possible again.
+
+---
+
 == Core Features
 
 === 🔍 Bubble Detection
@@ -228,15 +258,25 @@ We welcome contributions! See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc].
 
 **The internet should expand your worldview, not narrow it.**
 
-Algorithms optimize for engagement. Engagement = clicks. Clicks = showing you more of what you already like.
+Algorithms optimize for engagement. Engagement = clicks. Clicks = showing you more of what you already like. This creates filter bubbles, echo chambers, and polarization - not as side effects, but as **core features** of engagement optimization.
 
-This creates filter bubbles, echo chambers, and polarization.
+The result? We're losing our ability to understand people who think differently. Shared reality fractures. Democratic discourse becomes impossible when we can't even agree on what's true.
 
-Algorithm Shield doesn't fight the algorithm - it confuses it. By making your behavior unpredictable, you become unprofileable. And when you're unprofileable, the algorithm has to show you a diversity of content.
+**Algorithm Shield doesn't fight the algorithm - it confuses it.**
+
+By making your behavior unpredictable, you become unprofileable. And when you're unprofileable, the algorithm has to show you a diversity of content. You're not hiding - you're **refusing to be predictable**.
 
 **The membrane operates at every layer.**
 
-We use formal verification (Idris2 + proven library) to mathematically prove our code cannot crash or leak data. No "we think it's safe" - we have mathematical proof.
+We use formal verification (Idris2 + proven library) to mathematically prove our code cannot crash or leak data. No "we think it's safe" - we have mathematical proof. Future versions integrate Ephapax (Coq-proven memory safety), Svalinn/Vörðr (verified containers), and Cerro Torre (cryptographic provenance).
+
+**Four layers of mathematical proof.** This isn't just good engineering - it's a statement that tools for cognitive autonomy deserve the same rigor as safety-critical systems.
+
+**Respect for human agency is non-negotiable.**
+
+This tool asks permission. It explains its actions. It lets you stay in control. Because the alternative - replacing algorithmic manipulation with a different kind of manipulation - would miss the point entirely.
+
+The goal isn't to automate your way out of filter bubbles. It's to give you **the tools to cross boundaries intentionally**, while staying aware of what you're doing and why.
 
 ---
 
