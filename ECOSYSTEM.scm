@@ -82,7 +82,36 @@
      (why-related
        "Core inspiration for rule engine design."
        "Algorithm Shield = Minikaren in Rust for browser."
-       "Could eventually support Scheme DSL for advanced users.")))
+       "Could eventually support Scheme DSL for advanced users."))
+
+    ((name "svalinn")
+     (relationship potential-consumer)
+     (description "Edge gateway for verified container operations (Deno/Hono)")
+     (why-related
+       "Svalinn could validate Algorithm Shield extension operations."
+       "Enterprise deployment: policy enforcement via Svalinn gateway."
+       "OAuth2/JWT integration for SSO."
+       "MCP/JSON-RPC interface for extension ↔ container communication."))
+
+    ((name "vordr")
+     (relationship potential-consumer)
+     (description "Formally verified container orchestration (Elixir/Rust/Idris2/SPARK)")
+     (why-related
+       "Vörðr could run WASM rule engine in isolated container."
+       "Idris2 proofs guarantee state transitions are correct."
+       "Bennett-reversible operations (rollback bad rules)."
+       "BEAM fault tolerance for crash recovery."
+       "eBPF monitoring for syscall interception."))
+
+    ((name "cerro-torre")
+     (relationship potential-consumer)
+     (description "Provenance-verified container packaging (Ada/SPARK)")
+     (why-related
+       "Cerro Torre could package extension WASM with cryptographic provenance."
+       "Threshold signing (2-of-3 maintainer keys)."
+       "Reproducible builds (bit-for-bit verification)."
+       "SPARK-proven cryptographic operations."
+       "Supply chain security via .ctp bundles.")))
 
   (what-this-is
     "A browser extension for active resistance to algorithmic profiling."
