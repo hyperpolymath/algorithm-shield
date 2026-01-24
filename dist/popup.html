@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Algorithm Shield - Filter Bubble Protection</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Skip to main content for keyboard users -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div id="root" role="application" aria-label="Algorithm Shield Control Panel">
+    <header class="shield-header">
+      <h1 id="app-title">
+        <span aria-hidden="true">🛡️</span>
+        <span>Algorithm Shield</span>
+      </h1>
+      <div
+        class="mode-indicator"
+        id="mode-indicator"
+        role="status"
+        aria-live="polite"
+        aria-label="Current mode"
+      >Normal</div>
+    </header>
+
+    <main id="main-content">
+      <section class="dashboard" aria-labelledby="dashboard-title">
+        <h2 id="dashboard-title" class="visually-hidden">Dashboard Overview</h2>
+
+        <div class="membrane-thickness">
+          <label for="thickness-display" id="thickness-label">
+            Membrane Thickness
+            <button
+              class="help-btn"
+              aria-label="Help: What is membrane thickness?"
+              data-tooltip="Controls how aggressively the shield crosses filter bubbles. Higher values = more diverse content."
+              tabindex="0"
+            >
+              <span aria-hidden="true">ℹ️</span>
+            </button>
+          </label>
+          <div
+            class="thickness-bar"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="1"
+            aria-valuenow="0.50"
+            aria-valuetext="50 percent"
+            aria-labelledby="thickness-label"
+          >
+            <div class="thickness-fill" id="thickness-fill" style="width: 50%"></div>
+          </div>
+          <span class="thickness-value" id="thickness-value" aria-live="polite">0.50</span>
+        </div>
+
+        <div
+          class="bubble-map"
+          id="bubble-map"
+          role="region"
+          aria-labelledby="bubble-map-title"
+          aria-live="polite"
+        >
+          <h3 id="bubble-map-title" class="visually-hidden">Bubble Analysis</h3>
+          <p class="placeholder">Analyzing feed...</p>
+        </div>
+      </section>
+
+      <section class="quick-actions" aria-labelledby="actions-title">
+        <h2 id="actions-title" class="visually-hidden">Quick Actions</h2>
+
+        <button
+          id="breach-btn"
+          class="action-btn breach"
+          aria-label="Breach membrane to explore content outside your filter bubble"
+          aria-describedby="breach-help"
+        >
+          <span aria-hidden="true">⚡</span>
+          <span>Breach Membrane</span>
+        </button>
+        <span id="breach-help" class="visually-hidden">
+          Opens 3-5 tabs with diverse content outside your normal interests
+        </span>
+
+        <button
+          id="pause-btn"
+          class="action-btn pause"
+          aria-label="Pause shield protection"
+          aria-describedby="pause-help"
+        >
+          <span aria-hidden="true">⏸️</span>
+          <span>Pause Shield</span>
+        </button>
+        <span id="pause-help" class="visually-hidden">
+          Temporarily disable all filter bubble protection
+        </span>
+      </section>
+
+      <section class="lenses" aria-labelledby="lenses-title">
+        <h2 id="lenses-title">
+          Lenses
+          <button
+            class="help-btn"
+            aria-label="Help: What are lenses?"
+            data-tooltip="Lenses control how the shield selects diverse content. Each lens uses a different strategy."
+            tabindex="0"
+          >
+            <span aria-hidden="true">ℹ️</span>
+          </button>
+        </h2>
+        <div class="lens-grid" role="group" aria-labelledby="lenses-title">
+          <button
+            class="lens-card"
+            data-lens="opposition"
+            aria-label="Opposition lens: Find underrepresented viewpoints"
+            aria-pressed="false"
+          >
+            <span class="lens-icon" aria-hidden="true">⚔️</span>
+            <span class="lens-name">Opposition</span>
+          </button>
+          <button
+            class="lens-card"
+            data-lens="random-walk"
+            aria-label="Random Walk lens: Explore random diverse topics"
+            aria-pressed="false"
+          >
+            <span class="lens-icon" aria-hidden="true">🎲</span>
+            <span class="lens-name">Random Walk</span>
+          </button>
+          <button
+            class="lens-card"
+            data-lens="time-shift"
+            aria-label="Time Shift lens: Explore timeless classic content"
+            aria-pressed="false"
+          >
+            <span class="lens-icon" aria-hidden="true">⏳</span>
+            <span class="lens-name">Time-Shift</span>
+          </button>
+          <button
+            class="lens-card"
+            data-lens="serendipity"
+            aria-label="Serendipity lens: Completely unexpected discoveries"
+            aria-pressed="false"
+          >
+            <span class="lens-icon" aria-hidden="true">✨</span>
+            <span class="lens-name">Serendipity</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="personas" aria-labelledby="personas-title">
+        <h2 id="personas-title">
+          Personas
+          <button
+            class="help-btn"
+            aria-label="Help: What are personas?"
+            data-tooltip="Personas are behavioral profiles that change how you appear to algorithms. Switch personas to confuse profiling."
+            tabindex="0"
+          >
+            <span aria-hidden="true">ℹ️</span>
+          </button>
+        </h2>
+        <div class="persona-grid" role="group" aria-labelledby="personas-title">
+          <button
+            class="persona-card"
+            data-persona="gardener"
+            aria-label="Gardener persona: Nature and sustainability focused"
+            aria-pressed="false"
+          >
+            <span class="persona-icon" aria-hidden="true">🌱</span>
+            <span class="persona-name">Gardener</span>
+          </button>
+          <button
+            class="persona-card"
+            data-persona="tech-skeptic"
+            aria-label="Tech Skeptic persona: Privacy and digital minimalism"
+            aria-pressed="false"
+          >
+            <span class="persona-icon" aria-hidden="true">🔒</span>
+            <span class="persona-name">Tech Skeptic</span>
+          </button>
+          <button
+            class="persona-card"
+            data-persona="art-student"
+            aria-label="Art Student persona: Creative and cultural interests"
+            aria-pressed="false"
+          >
+            <span class="persona-icon" aria-hidden="true">🎨</span>
+            <span class="persona-name">Art Student</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <a
+        href="panel.html"
+        target="_blank"
+        class="open-panel"
+        aria-label="Open full control panel in new tab"
+      >
+        Open Control Panel
+      </a>
+    </footer>
+  </div>
+
+  <!-- Tooltip container for accessible help text -->
+  <div
+    id="tooltip"
+    role="tooltip"
+    class="tooltip"
+    aria-hidden="true"
+  ></div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
