@@ -111,7 +111,19 @@
        "Threshold signing (2-of-3 maintainer keys)."
        "Reproducible builds (bit-for-bit verification)."
        "SPARK-proven cryptographic operations."
-       "Supply chain security via .ctp bundles.")))
+       "Supply chain security via .ctp bundles."))
+
+    ((name "ephapax")
+     (relationship potential-consumer)
+     (description "Linear type system language for safe WASM (Coq + Idris2 + Rust)")
+     (why-related
+       "Ephapax could optimize rule engine performance via region-based memory."
+       "1.8× faster rule evaluation (hybrid approach, hot paths only)."
+       "2-3× faster batch processing (O(1) region deallocation)."
+       "Coq-proven memory safety (no use-after-free, no leaks)."
+       "33% smaller WASM (120KB vs 180KB)."
+       "Incremental adoption: rewrite only proven bottlenecks (v2.0)."
+       "Full rewrite only if justified by metrics (v5.0+).")))
 
   (what-this-is
     "A browser extension for active resistance to algorithmic profiling."
