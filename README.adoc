@@ -1,0 +1,200 @@
+= Algorithm Shield
+:toc:
+:toc-placement!:
+
+[.lead]
+A browser extension that actively operates to provide the user the ability to cross the differentially permeable membranes between filter bubble walls, and to allow you to use a miniKanren-inspired rule set to encourage antipatterns to the algorithms, provide a degree of stealth, armouring, polymorphism, and metamorphism online.
+
+toc::[]
+
+== Overview
+
+Algorithm Shield is a *programmable membrane* between you and engagement algorithms. It observes how platforms profile and funnel you, perturbs your visible behavior through user-defined rules, and mediates what you see and how you appear.
+
+Think of it as: *tactical misalignment* + *behavioral polymorphism* + *filter-bubble porosity*.
+
+=== Core Capabilities
+
+==== 1. Filter-Bubble Membrane Crossing
+
+* **Context-shifting lenses**: Opposition, Random Walk, Time-Shift, Locality, Serendipity
+* **Bubble map visualization**: See what clusters you're in, which adjacent spaces are available
+* **One-click membrane breach**: Trigger a controlled sequence of off-distribution interactions
+
+==== 2. MiniKaren Rule Engine
+
+A composable, narratable rules engine that nudges your visible behavior in ways that confuse or soften profiling:
+
+* **Noise Injection**: Occasionally click content that doesn't match your inferred profile
+* **Profile Dilution**: When viewing niche content, open diverse background tabs
+* **Engagement Disruption**: Soft-cap scroll depth, suggest breaks
+
+Rules are human-readable, togglable, and explainable.
+
+==== 3. Stealth, Armouring, Polymorphism
+
+* **Stealth modes**: Low-Profile, Ghost Walk
+* **Tracker Shield**: Blocks trackers with narrative explanations
+* **Persona Profiles**: Route browsing through defined personas (Gardener, Tech Skeptic, Art Student)
+* **Behavioral Shape-Shifting**: Rotate personas to prevent long-term lock-in
+
+== Architecture
+
+[source]
+----
+algorithm-shield/
+├── src/
+│   ├── rescript/           # Core logic (type-safe, compiles to ES6)
+│   │   ├── membrane/       # State orchestrator
+│   │   ├── observer/       # Feed analysis
+│   │   ├── actuator/       # Controlled interactions
+│   │   ├── lens/           # Feed transformations
+│   │   └── persona/        # Behavioral shells
+│   ├── rust/               # Rule engine (compiles to WASM)
+│   │   └── minikaren/      # Logic programming core
+│   ├── ui/                 # Popup and control panel
+│   └── platforms/          # Platform-specific adapters
+├── public/                 # HTML/CSS/assets
+├── manifest.json           # Browser extension manifest
+└── dist/                   # Built extension (load in Chrome)
+----
+
+== Tech Stack (RSR-Compliant)
+
+* **ReScript**: Type-safe application logic (→ ES6)
+* **Rust + WASM**: Performance-critical rule engine
+* **Deno**: Build tooling and dev server
+* **Minimal JS glue**: Browser extension APIs not yet bound in ReScript
+
+❌ No TypeScript, Node.js, npm, or banned languages per https://github.com/hyperpolymath/rhodium-standard-repositories[Rhodium Standard Repositories]
+
+== Getting Started
+
+=== Prerequisites
+
+[source,bash]
+----
+# Install ReScript compiler
+npm install -g rescript
+
+# Install wasm-pack for Rust→WASM
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+# Deno already available (from RSR environment)
+----
+
+=== Build
+
+[source,bash]
+----
+# Full build
+deno task build
+
+# Development mode (watches ReScript files)
+deno task dev
+----
+
+=== Load Extension
+
+1. Build the extension: `deno task build`
+2. Open Chrome → `chrome://extensions`
+3. Enable "Developer mode"
+4. Click "Load unpacked"
+5. Select the `dist/` directory
+
+== Usage
+
+=== HUD Overlay
+
+A small, persistent overlay on the edge of the screen shows:
+
+* Current mode (Normal / Stealth / Persona X)
+* Active lens
+* Membrane thickness
+* Quick toggles for breach/pause
+
+=== Control Panel
+
+Open the full control panel (from popup) to:
+
+* View the **Bubble Map**: See which clusters dominate your feed
+* Select **Lenses**: Opposition, Random Walk, Time-Shift, etc.
+* Activate **Personas**: Route browsing through behavioral shells
+* Edit **Minikaren Rules**: Toggle or customize anti-pattern rules
+* Review **Activity Log**: See what Algorithm Shield has done
+
+=== Example Workflow
+
+1. You notice your feed is heavily clustered around "Tech/AI/Startups"
+2. Open Algorithm Shield → click **Breach Membrane**
+3. Extension opens 3-5 off-distribution items, scrolls them briefly
+4. Feed refreshes, now showing more diverse content
+5. Activate **Opposition Lens** to continuously surface contrasting topics
+6. Switch to **Gardener Persona** to explore with a different behavioral signature
+
+== Minikaren Rules DSL
+
+Rules are defined in JSON and evaluated by the Rust WASM engine:
+
+[source,json]
+----
+{
+  "id": "noise-injection",
+  "name": "Noise Injection",
+  "description": "Occasionally click content outside your inferred profile",
+  "conditions": [],
+  "actions": [
+    { "type": "InjectNoise", "payload": { "count": 2 } }
+  ],
+  "probability": 0.3,
+  "enabled": true
+}
+----
+
+See `src/rust/minikaren/rules.rs` for predefined rule constructors.
+
+== Roadmap
+
+=== Phase 1: Observer + Simple Lens ✅
+
+* Read feed from one platform (YouTube/X)
+* Classify items into coarse topics
+* Provide "Random Walk" button
+* Simple bubble map
+
+=== Phase 2: Minikaren v0 (In Progress)
+
+* Tiny rule set: noise injection, profile dilution, engagement disruption
+* WASM integration
+* Activity log
+
+=== Phase 3: Persona Shells
+
+* 2-3 predefined personas
+* Route sessions through personas
+* Persona rotation scheduler
+
+=== Phase 4: Multi-Platform
+
+* Platform adapters for YouTube, X, Instagram, TikTok
+* Unified feed analysis across platforms
+
+=== Phase 5: Advanced UI
+
+* Full control panel
+* Visual bubble map (graph/radial viz)
+* Rule editor with DSL
+
+== Governance Files
+
+* link:STATE.scm[STATE.scm]: Current project state, tasks, blockers
+* link:ECOSYSTEM.scm[ECOSYSTEM.scm]: Position in hyperpolymath ecosystem
+* link:META.scm[META.scm]: Architecture decisions, design rationale
+
+== License
+
+AGPL-3.0-or-later
+
+== Contributing
+
+See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for development setup and guidelines.
