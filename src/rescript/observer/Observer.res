@@ -62,7 +62,7 @@ let detectPlatform = (url: string): option<string> => {
 
 // Extract content signals from DOM
 // Platform-specific implementations will be in src/platforms/
-let extractSignals = (platform: string, document: 'a): array<ContentSignal.t> => {
+let extractSignals = (_platform: string, _document: 'a): array<ContentSignal.t> => {
   // Placeholder - actual implementation delegated to platform modules
   []
 }
@@ -113,7 +113,7 @@ let identifyClusters = (signals: array<ContentSignal.t>): array<FeedState.cluste
   })
 
   // Convert to clusters with strength
-  let total = Array.length(signals)->Int.toFloat
+  let _total = Array.length(signals)->Int.toFloat
   []  // Simplified for now
 }
 
@@ -123,7 +123,9 @@ let updateFeedState = (
   newSignals: array<ContentSignal.t>
 ): FeedState.t => {
   let allSignals = Array.concat(state.recentSignals, newSignals)
-  let recentWindow = allSignals->Array.sliceToEnd(~start=-50) // Keep last 50
+  let totalLen = Array.length(allSignals)
+  let startIdx = if totalLen > 50 { totalLen - 50 } else { 0 }
+  let recentWindow = allSignals->Array.slice(~start=startIdx, ~end=totalLen) // Keep last 50
 
   {
     dominantClusters: identifyClusters(recentWindow),

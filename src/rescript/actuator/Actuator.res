@@ -75,7 +75,7 @@ module RateLimiter = {
     {recentActions: [], bounds}
   }
 
-  let canAct = (limiter: t, actionType: InteractionType.t): bool => {
+  let canAct = (limiter: t, _actionType: InteractionType.t): bool => {
     let now = Date.now()
     let oneMinuteAgo = now -. 60000.0
 

@@ -18,15 +18,15 @@
      (domain "browser-extension" "counter-algorithm" "privacy-tool"))
 
     (current-position
-     (phase "scaffold-complete")
-     (overall-completion 15)
+     (phase "seam-2-closed")
+     (overall-completion 25)
      (components
       ((name "ReScript Core")
-       (completion 30)
-       (status "foundational-modules-written"))
-      ((name "Rust Rule Engine")
        (completion 40)
-       (status "minikaren-core-implemented"))
+       (status "compiled-with-browser-bindings"))
+      ((name "Rust Rule Engine")
+       (completion 80)
+       (status "built-to-wasm-180kb"))
       ((name "UI/UX")
        (completion 20)
        (status "popup-html-css-complete"))
@@ -38,12 +38,14 @@
        (status "not-started"))))
 
      (working-features
-      ("Project structure" "ReScript modules" "Rust WASM engine skeleton"
+      ("Project structure" "ReScript compilation" "Rust WASM build (180KB)"
+       "Browser API bindings (Chrome Storage/Tabs/Runtime)" "Rule engine WASM exports"
        "Popup UI mockup" "Build scripts"))
 
      (not-yet-working
-      ("ReScript compilation" "WASM integration" "Platform-specific DOM hooks"
-       "Chrome extension loading" "Lens transformations" "Persona behavior")))
+      ("Platform-specific DOM hooks" "Chrome extension loading (untested)"
+       "Lens transformations (stubbed)" "Persona behavior (stubbed)"
+       "Actual WASM integration test in browser" "Extension manifest icons")))
 
     (route-to-mvp
      (milestones
@@ -91,8 +93,9 @@
       (seam-2
        (name "ReScript ↔ Rust/WASM")
        (risk "HIGH")
-       (status "unresolved")
-       (blocker "WASM not built, no bindings, async loading untested")
+       (status "CLOSED")
+       (resolution "WASM built (180KB), ReScript bindings created, async loading ready")
+       (closed-date "2026-01-24")
        (required-for "v0.5"))
 
       (seam-3
@@ -196,7 +199,24 @@
        (features "W3C protocol, browser-native, platform cooperation"))))
 
     (session-history
-     ((session-id "2026-01-24-seam-analysis")
+     ((session-id "2026-01-24-seam-2-closed")
+      (date "2026-01-24")
+      (accomplishments
+       ("CLOSED Seam 2: ReScript ↔ Rust/WASM integration"
+        "Installed ReScript compiler (npm)"
+        "Fixed ReScript compilation errors (6 files, 62 modules)"
+        "Installed wasm-pack"
+        "Built Rust → WASM successfully (180KB, under target)"
+        "Created ReScript bindings: RuleEngine, ChromeStorage, ChromeTabs, ChromeRuntime"
+        "Created WASM integration test file"
+        "Fixed deprecated Array.sliceToEnd → Array.slice"
+        "Fixed @scope syntax for browser API bindings"
+        "Updated STATE.scm: 15% → 25% complete"))
+      (duration-minutes 45)
+      (files-created 6)
+      (seams-closed 1))
+
+     (session-id "2026-01-24-seam-analysis")
       (date "2026-01-24")
       (accomplishments
        ("Performed comprehensive seam analysis (10 critical interfaces)"

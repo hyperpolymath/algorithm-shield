@@ -47,7 +47,7 @@ let applyOppositionLens = (
 
   // Categories NOT in dominant list
   let opposingCats = allCategories->Array.filter(cat =>
-    !dominantCats->Array.includes(cat)
+    !(dominantCats->Array.includes(cat))
   )
 
   let narrative = if Array.length(opposingCats) > 0 {
