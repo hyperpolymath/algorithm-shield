@@ -349,22 +349,87 @@ function extractYouTubeResults() {
 }
 
 /**
- * Universal extractor - routes to platform-specific function
+ * Heuristic extractor - works on ANY site without knowing HTML structure
+ *
+ * Finds repeated link patterns that look like search results/products/videos
+ */
+function extractByHeuristics() {
+  console.log('🔬 Using heuristic extraction (no site-specific selectors)...');
+
+  // Find all links that might be content titles
+  const allLinks = Array.from(document.querySelectorAll('a[href]'));
+
+  const contentLinks = allLinks.filter(link => {
+    const text = link.textContent?.trim() || '';
+    if (text.length < 10) return false;
+
+    // Skip navigation
+    if (/^(home|about|contact|login|cart|account|help|menu|more|next|previous|skip)$/i.test(text)) return false;
+
+    // Skip hidden
+    const style = window.getComputedStyle(link);
+    if (style.display === 'none' || style.visibility === 'hidden') return false;
+
+    return true;
+  });
+
+  if (contentLinks.length === 0) return [];
+
+  // Group by parent structure (repeated patterns = results)
+  const groups = {};
+  for (const link of contentLinks) {
+    let parent = link.parentElement;
+    const signature = [];
+    for (let i = 0; i < 3 && parent; i++) {
+      signature.push(parent.tagName);
+      parent = parent.parentElement;
+    }
+    const key = signature.join('.');
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(link);
+  }
+
+  // Find largest group (likely the main results)
+  const largestGroup = Object.values(groups)
+    .filter(g => g.length >= 3)
+    .sort((a, b) => b.length - a.length)[0];
+
+  if (!largestGroup) return [];
+
+  console.log(`🎯 Heuristic extractor found ${largestGroup.length} items`);
+
+  return largestGroup.map(link => ({
+    title: link.textContent?.trim() || '',
+    description: '',
+    source: 'heuristic'
+  }));
+}
+
+/**
+ * Universal extractor - routes to platform-specific function, falls back to heuristics
  */
 function extractResults() {
   const {platform, mode} = shieldState.platformInfo;
 
   console.log(`🔧 Extracting results for ${platform} (${mode})...`);
 
-  if (platform === 'google') return extractGoogleResults();
-  if (platform === 'bing') return extractBingResults();
-  if (platform === 'duckduckgo') return extractDuckDuckGoResults();
-  if (platform === 'amazon') return extractAmazonResults();
-  if (platform === 'ebay') return extractEbayResults();
-  if (platform === 'youtube') return extractYouTubeResults();
+  let results = [];
 
-  console.warn(`⚠️ No extractor for platform: ${platform}`);
-  return [];
+  // Try platform-specific extractor first
+  if (platform === 'google') results = extractGoogleResults();
+  else if (platform === 'bing') results = extractBingResults();
+  else if (platform === 'duckduckgo') results = extractDuckDuckGoResults();
+  else if (platform === 'amazon') results = extractAmazonResults();
+  else if (platform === 'ebay') results = extractEbayResults();
+  else if (platform === 'youtube') results = extractYouTubeResults();
+
+  // Fallback to heuristics if site-specific extractor failed
+  if (results.length === 0) {
+    console.log('⚠️ Site-specific extractor returned 0 results, trying heuristics...');
+    results = extractByHeuristics();
+  }
+
+  return results;
 }
 
 /**
