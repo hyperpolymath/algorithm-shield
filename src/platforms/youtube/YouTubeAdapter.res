@@ -4,6 +4,9 @@
 
 // YouTube platform adapter - DOM signal extraction
 
+// Import DOM bindings
+module Dom = YouTubeDOMBindings
+
 // YouTube-specific DOM selectors (as of 2026-01)
 module Selectors = {
   // Main feed container
@@ -95,21 +98,54 @@ let classifyContent = (title: string, channel: string): array<Observer.ContentSi
 
 // Extract signal from a single video element
 let extractVideoSignal = (element: Dom.element): option<Observer.ContentSignal.t> => {
-  // This will be implemented with actual DOM queries
-  // For now, returning None as placeholder
-  None
+  // Extract title
+  let titleOpt = Dom.elementQuerySelector(element, Selectors.videoTitle)
+    ->Null.toOption
+    ->Option.map(Dom.getTextSafe)
+
+  // Extract channel name
+  let channelOpt = Dom.elementQuerySelector(element, Selectors.channelName)
+    ->Null.toOption
+    ->Option.map(Dom.getTextSafe)
+
+  // Extract video URL from title link
+  let urlOpt = Dom.elementQuerySelector(element, Selectors.videoTitle)
+    ->Null.toOption
+    ->Option.flatMap(titleEl =>
+      Dom.getAttributeSafe(titleEl, "href")
+        ->String.trim
+        ->Option.fromPredicate(url => url != "")
+    )
+
+  // Only create signal if we have at least a title and URL
+  switch (titleOpt, urlOpt) {
+  | (Some(title), Some(url)) => {
+      let channel = channelOpt->Option.getOr("Unknown Channel")
+      let categories = classifyContent(title, channel)
+
+      Some({
+        Observer.ContentSignal.url: url,
+        text: Some(title),
+        categories: categories,
+        timestamp: Date.now(),
+        platformSource: "youtube",
+        confidence: if Array.length(categories) > 0 { 0.7 } else { 0.3 },
+      })
+    }
+  | _ => None
+  }
 }
 
 // Extract all signals from YouTube feed
 let extractSignals = (document: Dom.document): array<Observer.ContentSignal.t> => {
-  // This is a placeholder - actual implementation will:
-  // 1. Query feedContainer for all videoItems
-  // 2. For each item, extract title, channel, thumbnail URL
-  // 3. Classify content into categories
-  // 4. Create ContentSignal.t for each video
-  // 5. Return array of signals
+  // Query all video items from the feed
+  let videoNodeList = Dom.querySelectorAll(document, Selectors.videoItem)
+  let videoElements = Dom.nodeListToArray(videoNodeList)
 
-  []
+  // Extract signals from each video element
+  videoElements
+    ->Array.map(extractVideoSignal)
+    ->Array.filterMap(x => x)  // Filter out None values
 }
 
 // Get current feed diversity

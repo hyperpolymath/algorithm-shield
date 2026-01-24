@@ -70,10 +70,67 @@ let applyRandomWalkLens = (
   feedState: FeedState.t,
   config: LensConfig.t,
 ): TransformResult.t => {
-  // Pick 3-5 random items from outside dominant clusters
+  // Define diverse search queries outside typical bubbles
+  let diverseTopics = [
+    ("origami tutorials", ContentSignal.Art),
+    ("mycology foraging", ContentSignal.Education),
+    ("esperanto language", ContentSignal.Education),
+    ("circuit bending music", ContentSignal.Entertainment),
+    ("urban beekeeping", ContentSignal.Health),
+    ("brutalist architecture", ContentSignal.Art),
+    ("fermentation science", ContentSignal.Science),
+    ("indigenous knowledge systems", ContentSignal.Education),
+    ("mathematical art", ContentSignal.Art),
+    ("permaculture design", ContentSignal.Health),
+    ("linguistics documentary", ContentSignal.Education),
+    ("avant-garde cinema", ContentSignal.Entertainment),
+    ("ethnomusicology", ContentSignal.Entertainment),
+    ("bio-architecture", ContentSignal.Science),
+    ("systems thinking", ContentSignal.Education),
+  ]
+
+  // Find dominant categories to avoid
+  let dominantCats = feedState.dominantClusters->Array.map(c => c.category)
+
+  // Filter topics that are NOT in dominant categories
+  let opposingTopics = diverseTopics->Array.filter(((_, cat)) =>
+    !(dominantCats->Array.includes(cat))
+  )
+
+  // Randomly select 3-5 topics
+  let numToSelect = Int.fromFloat(3.0 +. Random.float(3.0))  // 3-5
+  let selectedTopics = []
+
+  for _ in 0 to numToSelect - 1 {
+    let availableTopics = if Array.length(opposingTopics) > 0 {
+      opposingTopics
+    } else {
+      diverseTopics  // Fallback if all categories are dominant
+    }
+
+    let randomIdx = Int.fromFloat(
+      Random.float(Int.toFloat(Array.length(availableTopics)))
+    )
+
+    switch availableTopics->Array.get(randomIdx) {
+    | Some((topic, _)) => {
+        let encodedTopic = topic
+          ->String.replaceAll(" ", "+")
+        let url = `https://www.youtube.com/results?search_query=${encodedTopic}`
+        selectedTopics->Array.push(url)->ignore
+      }
+    | None => ()
+    }
+  }
+
+  let narrative = switch Array.length(selectedTopics) {
+  | 0 => "No random walk paths generated"
+  | n => `Opening ${Int.toString(n)} exploratory paths outside your filter bubble`
+  }
+
   {
-    actions: [],
-    narrative: "Exploring low-probability recommendation paths",
+    actions: [TransformResult.Inject(selectedTopics)],
+    narrative,
   }
 }
 

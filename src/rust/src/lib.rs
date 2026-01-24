@@ -2,11 +2,10 @@
 // Copyright (c) 2026 hyperpolymath
 // Part of Algorithm Shield - https://github.com/hyperpolymath/algorithm-shield
 // WASM entry point for Algorithm Shield rule engine
-// Uses proven library for unbreakable JSON parsing
+// TODO: Re-enable proven library when Rust bindings are updated (v0.9+)
 
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
-use proven::{SafeJson, SafeString};
 
 mod minikaren;
 
@@ -23,23 +22,22 @@ impl RuleEngine {
     }
 
     pub fn add_rule(&mut self, rule_json: &str) -> Result<(), JsValue> {
-        // Use proven SafeJson for crash-proof parsing
-        let rule: minikaren::Rule = SafeJson::parse(rule_json)
-            .map_err(|e| JsValue::from_str(&format!("JSON parse error: {}", e)))?;
+        // TODO: Use proven SafeJson when bindings are ready
+        let rule: minikaren::Rule = serde_json::from_str(rule_json)
+            .map_err(|e| JsValue::from_str(&format!("Parse error: {}", e)))?;
         self.rules.push(rule);
         Ok(())
     }
 
     pub fn evaluate(&self, context_json: &str) -> Result<String, JsValue> {
-        // Use proven SafeJson for crash-proof parsing
-        let context: minikaren::Context = SafeJson::parse(context_json)
-            .map_err(|e| JsValue::from_str(&format!("JSON parse error: {}", e)))?;
+        // TODO: Use proven SafeJson when bindings are ready
+        let context: minikaren::Context = serde_json::from_str(context_json)
+            .map_err(|e| JsValue::from_str(&format!("Parse error: {}", e)))?;
 
         let actions = minikaren::evaluate_rules(&self.rules, &context);
 
-        // Use proven SafeJson for crash-proof serialization
-        SafeJson::stringify(&actions)
-            .map_err(|e| JsValue::from_str(&format!("JSON serialize error: {}", e)))
+        serde_json::to_string(&actions)
+            .map_err(|e| JsValue::from_str(&format!("Serialize error: {}", e)))
     }
 
     pub fn narrate_rules(&self) -> String {

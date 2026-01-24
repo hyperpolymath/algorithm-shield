@@ -113,10 +113,86 @@ let executeInteraction = (
   if !RateLimiter.canAct(limiter, action) {
     Error("Rate limit exceeded")
   } else {
-    // Actual DOM manipulation would happen here
-    // For now, just record the action
+    // Actual DOM manipulation happens here
+    let _ = switch action {
+    | OpenTab(url) => {
+        // Open new tab using Chrome API
+        ignore(ChromeTabs.Tabs.createWithUrl(url, false))
+      }
+    | _ => () // Other actions not yet implemented
+    }
+
     let newLimiter = RateLimiter.recordAction(limiter)
     let newLog = ActionLog.add(log, action, rationale)
     Ok((newLimiter, newLog))
   }
+}
+
+// Execute lens actions with human timing
+let executeLensActions = async (
+  actions: array<Lens.TransformResult.action>,
+  limiter: RateLimiter.t,
+  log: ActionLog.t,
+): result<(RateLimiter.t, ActionLog.t), string> => {
+  let rec processActions = async (
+    remainingActions: array<Lens.TransformResult.action>,
+    currentLimiter: RateLimiter.t,
+    currentLog: ActionLog.t,
+  ): result<(RateLimiter.t, ActionLog.t), string> => {
+    switch remainingActions->Array.get(0) {
+    | None => Ok((currentLimiter, currentLog))
+    | Some(action) => {
+        let result = switch action {
+        | Inject(urls) => {
+            // Open each URL in sequence with human timing
+            let rec openUrls = async (
+              urls: array<string>,
+              lim: RateLimiter.t,
+              l: ActionLog.t,
+            ): result<(RateLimiter.t, ActionLog.t), string> => {
+              switch urls->Array.get(0) {
+              | None => Ok((lim, l))
+              | Some(url) => {
+                  // Wait with human-like timing between tabs
+                  let delay = HumanTiming.TimingProfile.betweenActions()
+                  await HumanTiming.Sleep.wait(delay)
+
+                  // Open the tab
+                  let actionResult = executeInteraction(
+                    OpenTab(url),
+                    "Lens membrane crossing",
+                    lim,
+                    l,
+                  )
+
+                  switch actionResult {
+                  | Error(e) => Error(e)
+                  | Ok((newLim, newLog)) => {
+                      let len = Array.length(urls)
+                      let remaining = urls->Array.slice(~start=1, ~end=len)
+                      await openUrls(remaining, newLim, newLog)
+                    }
+                  }
+                }
+              }
+            }
+
+            await openUrls(urls, currentLimiter, currentLog)
+          }
+        | _ => Ok((currentLimiter, currentLog))  // Other actions not yet implemented
+        }
+
+        switch result {
+        | Error(e) => Error(e)
+        | Ok((newLimiter, newLog)) => {
+            let len = Array.length(remainingActions)
+            let remaining = remainingActions->Array.slice(~start=1, ~end=len)
+            await processActions(remaining, newLimiter, newLog)
+          }
+        }
+      }
+    }
+  }
+
+  await processActions(actions, limiter, log)
 }
