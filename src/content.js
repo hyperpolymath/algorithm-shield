@@ -68,8 +68,9 @@ function detectPlatform() {
   const pathname = window.location.pathname;
   const searchParams = new URLSearchParams(window.location.search);
 
-  // Google (all modes)
-  if (hostname.includes('google.com')) {
+  // Google (all modes, all countries)
+  // Matches: google.com, google.co.uk, google.de, google.fr, google.cz, etc.
+  if (hostname.includes('google.')) {
     const tbm = searchParams.get('tbm'); // search mode parameter
     if (tbm === 'shop') return {platform: 'google', mode: 'shopping', supported: true};
     if (tbm === 'vid') return {platform: 'google', mode: 'video', supported: true};
@@ -80,8 +81,15 @@ function detectPlatform() {
     return {platform: 'google', mode: 'homepage', supported: false};
   }
 
-  // Bing (all modes)
-  if (hostname.includes('bing.com')) {
+  // Bing (all modes, all countries)
+  // Matches: bing.com, bing.co.uk, bing.de, videos.bing.com, etc.
+  if (hostname.includes('bing.')) {
+    // Check subdomain first (videos.bing.com, images.bing.com, etc.)
+    if (hostname.startsWith('videos.')) return {platform: 'bing', mode: 'video', supported: true};
+    if (hostname.startsWith('images.')) return {platform: 'bing', mode: 'images', supported: true};
+    if (hostname.startsWith('news.')) return {platform: 'bing', mode: 'news', supported: true};
+
+    // Check path (bing.com/videos, bing.com/images, etc.)
     if (pathname.includes('/shop')) return {platform: 'bing', mode: 'shopping', supported: true};
     if (pathname.includes('/videos')) return {platform: 'bing', mode: 'video', supported: true};
     if (pathname.includes('/news')) return {platform: 'bing', mode: 'news', supported: true};
@@ -102,33 +110,38 @@ function detectPlatform() {
     return {platform: 'duckduckgo', mode: 'homepage', supported: false};
   }
 
-  // Amazon
-  if (hostname.includes('amazon.com') || hostname.includes('amazon.co.uk')) {
+  // Amazon (all countries)
+  // Matches: amazon.com, amazon.co.uk, amazon.de, amazon.fr, amazon.cz, amazon.co.jp, amazon.ca, etc.
+  if (hostname.includes('amazon.')) {
     if (pathname.includes('/s/') || searchParams.has('k')) return {platform: 'amazon', mode: 'search', supported: true};
     if (pathname.includes('/dp/') || pathname.includes('/gp/product')) return {platform: 'amazon', mode: 'product', supported: false};
     return {platform: 'amazon', mode: 'browse', supported: true};
   }
 
-  // eBay
-  if (hostname.includes('ebay.com')) {
+  // eBay (all countries)
+  // Matches: ebay.com, ebay.co.uk, ebay.de, ebay.fr, ebay.cz, etc.
+  if (hostname.includes('ebay.')) {
     if (pathname.includes('/sch/') || searchParams.has('_nkw')) return {platform: 'ebay', mode: 'search', supported: true};
     return {platform: 'ebay', mode: 'browse', supported: true};
   }
 
-  // Walmart
-  if (hostname.includes('walmart.com')) {
+  // Walmart (all countries - currently mainly .com, .ca, .com.mx)
+  // Matches: walmart.com, walmart.ca, walmart.com.mx, etc.
+  if (hostname.includes('walmart.')) {
     if (pathname.includes('/search')) return {platform: 'walmart', mode: 'search', supported: true};
     return {platform: 'walmart', mode: 'browse', supported: true};
   }
 
-  // Etsy
-  if (hostname.includes('etsy.com')) {
+  // Etsy (all countries)
+  // Matches: etsy.com, etsy.co.uk, etsy.de, etsy.fr, etc.
+  if (hostname.includes('etsy.')) {
     if (pathname.includes('/search')) return {platform: 'etsy', mode: 'search', supported: true};
     return {platform: 'etsy', mode: 'browse', supported: true};
   }
 
-  // YouTube
-  if (hostname.includes('youtube.com')) {
+  // YouTube (all countries)
+  // Matches: youtube.com, youtube.co.uk, youtube.de, youtube.fr, etc.
+  if (hostname.includes('youtube.')) {
     if (pathname === '/' || pathname === '/feed/subscriptions') return {platform: 'youtube', mode: 'feed', supported: true};
     if (pathname.includes('/results')) return {platform: 'youtube', mode: 'search', supported: true};
     return {platform: 'youtube', mode: 'watch', supported: false};
