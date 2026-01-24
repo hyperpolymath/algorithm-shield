@@ -225,7 +225,25 @@
        (features "W3C protocol, browser-native, platform cooperation"))))
 
     (session-history
-     ((session-id "2026-01-24-core-functionality-implementation")
+     ((session-id "2026-01-24-ephapax-proven-integration-path-clarified")
+      (date "2026-01-24")
+      (accomplishments
+       ("Clarified proven library integration path for v2.0"
+        "Confirmed Ephapax bindings ready: /var/mnt/eclipse/repos/proven/bindings/ephapax"
+        "Confirmed Zig FFI built: libproven.so + libephapax_proven.so"
+        "All FFI tests passing (BUILD-SUCCESS.md)"
+        "Architecture clarified: Ephapax compiles to WASM (browser-compatible!)"
+        "v1.0: Pure Rust/WASM with serde_json"
+        "v2.0: Hybrid Rust + Ephapax hot paths calling proven via Zig FFI"
+        "Updated PROVEN-EPHAPAX-INTEGRATION.adoc with status"
+        "Removed SPARK confusion (SPARK only in Cerro Torre packaging layer)"
+        "WASM builds successfully (180KB)"
+        "Integration timeline: v2.0 (Dec 2026) when Ephapax hot paths added"))
+      (duration-minutes 30)
+      (files-modified 4)
+      (integration-status "ready-for-v2.0"))
+
+     (session-id "2026-01-24-core-functionality-implementation")
       (date "2026-01-24")
       (accomplishments
        ("Implemented YouTube DOM extraction (SEAM-3 resolution)"

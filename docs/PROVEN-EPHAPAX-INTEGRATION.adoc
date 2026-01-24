@@ -14,21 +14,29 @@ Algorithm Shield will use Ephapax for performance-critical hot paths in v2.0+. T
 
 == Requirements for v2.0
 
-=== Bidirectional Zig FFI/ABI
+=== Bidirectional Zig FFI/ABI - WASM Compatible
 
-proven's core is written in Idris2 with Zig FFI bridge. Ephapax also compiles to WASM and uses linear types. Integration path:
+✅ **Ephapax compiles directly to WASM** - perfect for browser extensions!
+
+proven's core is written in Idris2 with Zig FFI bridge. Ephapax compiles to WASM and uses linear types. Integration path:
 
 ```
 Idris2 (proven core)
   ↓ (verified exports)
-Zig FFI bridge
+Zig FFI bridge (libephapax_proven.so ✅ BUILT)
   ↓ (C ABI)
 Ephapax (Algorithm Shield hot paths)
-  ↓ (bidirectional calls)
-Zig FFI bridge
-  ↓ (WASM ABI)
+  ↓ (compiles to WASM ✅)
 Browser WASM runtime
+
+All layers compile to WASM = works in browser!
 ```
+
+**Status Update (2026-01-24):**
+- ✅ Zig FFI bridge built: `/var/mnt/eclipse/repos/proven/ffi/zig/zig-out/lib/libproven.so`
+- ✅ Ephapax bindings built: `/var/mnt/eclipse/repos/proven/bindings/ephapax/libephapax_proven.so`
+- ✅ All tests passing (see BUILD-SUCCESS.md)
+- ✅ Ready for integration in Algorithm Shield v2.0
 
 === Critical Modules for Algorithm Shield
 

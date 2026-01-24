@@ -2,7 +2,12 @@
 // Copyright (c) 2026 hyperpolymath
 // Part of Algorithm Shield - https://github.com/hyperpolymath/algorithm-shield
 // WASM entry point for Algorithm Shield rule engine
-// TODO: Re-enable proven library when Rust bindings are updated (v0.9+)
+//
+// v1.0: Uses serde_json (WASM-compatible)
+// v2.0: Will use proven library via Ephapax hot paths (Idris2-verified, Zig FFI)
+//       - Ephapax bindings ready: /var/mnt/eclipse/repos/proven/bindings/ephapax
+//       - Zig FFI layer ready: /var/mnt/eclipse/repos/proven/ffi/zig
+//       - See: docs/PROVEN-EPHAPAX-INTEGRATION.adoc
 
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -22,7 +27,8 @@ impl RuleEngine {
     }
 
     pub fn add_rule(&mut self, rule_json: &str) -> Result<(), JsValue> {
-        // TODO: Use proven SafeJson when bindings are ready
+        // v1.0: serde_json (WASM-compatible)
+        // v2.0: Will use proven::SafeJson via Ephapax hot paths
         let rule: minikaren::Rule = serde_json::from_str(rule_json)
             .map_err(|e| JsValue::from_str(&format!("Parse error: {}", e)))?;
         self.rules.push(rule);
@@ -30,7 +36,8 @@ impl RuleEngine {
     }
 
     pub fn evaluate(&self, context_json: &str) -> Result<String, JsValue> {
-        // TODO: Use proven SafeJson when bindings are ready
+        // v1.0: serde_json (WASM-compatible)
+        // v2.0: Will use proven::SafeJson via Ephapax hot paths
         let context: minikaren::Context = serde_json::from_str(context_json)
             .map_err(|e| JsValue::from_str(&format!("Parse error: {}", e)))?;
 
