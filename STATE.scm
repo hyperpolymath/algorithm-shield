@@ -79,21 +79,55 @@
          "Execute actions from rule engine"
          "Display rule narratives in UI")))))
 
+    (critical-seams
+     ;; See docs/SEAM-ANALYSIS.adoc for full analysis
+     ((seam-1
+       (name "ReScript ↔ Browser APIs")
+       (risk "MEDIUM")
+       (status "unresolved")
+       (blocker "No bindings written for chrome.storage, chrome.tabs, chrome.runtime")
+       (required-for "v0.5"))
+
+      (seam-2
+       (name "ReScript ↔ Rust/WASM")
+       (risk "HIGH")
+       (status "unresolved")
+       (blocker "WASM not built, no bindings, async loading untested")
+       (required-for "v0.5"))
+
+      (seam-3
+       (name "Content Script ↔ Page DOM")
+       (risk "CRITICAL")
+       (status "unresolved")
+       (blocker "No platform adapters implemented, DOM selectors unknown")
+       (required-for "v0.5"))
+
+      (seam-6
+       (name "Actuator ↔ Platform Detection")
+       (risk "CRITICAL")
+       (status "unresolved")
+       (blocker "No bot detection mitigation, timing not human-like")
+       (required-for "v0.5"))))
+
     (blockers-and-issues
      (critical
-      ("Need to install ReScript compiler and test compilation"
-       "Need to install wasm-pack and test Rust build"
-       "Rust code uses `rand` crate without dependency declaration"))
+      ("SEAM-2: WASM integration completely untested"
+       "SEAM-3: YouTube DOM structure unmapped"
+       "SEAM-6: Bot detection will trigger on first use"
+       "Need to install ReScript compiler and test compilation"
+       "Need to install wasm-pack and test Rust build"))
 
      (high
-      ("Browser extension bindings for ReScript not written"
+      ("SEAM-1: Browser extension bindings for ReScript not written"
        "Platform-specific DOM selectors unknown"
-       "WASM integration pattern needs testing"))
+       "WASM size could exceed 500KB (performance risk)"
+       "No human-like timing implemented"))
 
      (medium
       ("Icon assets not created (16px, 48px, 128px)"
        "Activity log UI not designed"
-       "Control panel (panel.html) not implemented"))
+       "Control panel (panel.html) not implemented"
+       "Missing NEUROSYM.scm, PLAYBOOK.scm, AGENTIC.scm (3/6 SCM complete)"))
 
      (low
       ("No tests written"
@@ -101,26 +135,82 @@
        "Documentation needs examples")))
 
     (critical-next-actions
+     ;; Path to v0.5 (8 weeks): Close seams 2, 3, 6
      (immediate
-      ("Fix Rust Cargo.toml: add `rand` dependency"
-       "Test ReScript compilation: `npx rescript build`"
-       "Test Rust build: `cargo build --target wasm32-unknown-unknown`"
-       "Create placeholder icon assets"))
+      ("Read seam analysis: docs/SEAM-ANALYSIS.adoc"
+       "Install ReScript: npm install -g rescript"
+       "Test ReScript compilation: npx rescript build"
+       "Install wasm-pack for Rust→WASM"
+       "Create placeholder icon assets (16/48/128 px)"))
 
      (this-week
-      ("Write browser extension bindings in ReScript"
-       "Implement basic YouTube platform adapter"
-       "Test extension loading in Chrome"
-       "Fix any build errors"))
+      ("SEAM-2: Build Rust→WASM with wasm-pack"
+       "SEAM-2: Test WASM loads in extension context"
+       "SEAM-1: Write ChromeStorage.res bindings"
+       "SEAM-1: Write ChromeTabs.res bindings"
+       "Test extension loads in Chrome without errors"))
 
      (this-month
-      ("Implement Observer.extractSignals for YouTube"
-       "Build Random Walk lens transformation logic"
-       "Integrate WASM rule engine"
-       "Create activity log UI")))
+      ("SEAM-3: Map YouTube feed DOM structure"
+       "SEAM-3: Implement YouTubeAdapter.extractSignals"
+       "SEAM-6: Implement human-like timing (jitter, delays)"
+       "SEAM-6: Test bot detection resilience"
+       "Implement Random Walk lens URL generation"
+       "Wire popup UI to ReScript state"))
+
+     (v0.5-milestone
+      ("Extension loads and displays popup"
+       "YouTube feed diversity calculated"
+       "Membrane breach opens 3-5 tabs with human timing"
+       "Activity log records all actions"
+       "State persists across browser sessions"
+       "User testing with 5-10 people")))
+
+    (version-roadmap
+     ;; See docs/ROADMAP.adoc for full details
+     ((v0.5
+       (target-date "2026-03-15")
+       (goal "First working prototype")
+       (features "YouTube observer, Random Walk lens, manual breach")
+       (critical-seams "2, 3, 6"))
+
+      (v1.0
+       (target-date "2026-06-01")
+       (goal "Production MVP")
+       (features "3 platforms, 5 lenses, 3 personas, rule engine")
+       (critical-seams "7, 8, 9, 10"))
+
+      (v2.0
+       (target-date "2026-12-01")
+       (goal "Distributed personas")
+       (features "Persona sync, encrypted export, marketplace"))
+
+      (v5.0
+       (target-date "2027-06-01")
+       (goal "Federated bubble map")
+       (features "Crowdsourced topology, community lenses"))
+
+      (v10.0
+       (target-date "2028-01-01")
+       (goal "Ecosystem standard")
+       (features "W3C protocol, browser-native, platform cooperation"))))
 
     (session-history
-     ((session-id "2026-01-24-scaffold")
+     ((session-id "2026-01-24-seam-analysis")
+      (date "2026-01-24")
+      (accomplishments
+       ("Performed comprehensive seam analysis (10 critical interfaces)"
+        "Mapped evolutionary roadmap v0.1→v0.5→v1.0→v10.0"
+        "Documented all critical integration points"
+        "Identified 4 critical seams for v0.5 (2, 3, 6, and 1)"
+        "Created docs/SEAM-ANALYSIS.adoc (detailed)"
+        "Created docs/ROADMAP.adoc (version plan)"
+        "Updated STATE.scm with seam tracking"
+        "Stored 6SCM specification in memory"))
+      (duration-minutes 60)
+      (files-created 2))
+
+     (session-id "2026-01-24-scaffold")
       (date "2026-01-24")
       (accomplishments
        ("Created full project structure"
@@ -129,7 +219,7 @@
         "Created popup UI (HTML/CSS/JS)"
         "Wrote build scripts (Deno)"
         "Wrote comprehensive README.adoc"
-        "Created STATE.scm"))
+        "Created STATE.scm, META.scm, ECOSYSTEM.scm (3/6 SCM)"))
       (duration-minutes 90)
       (files-created 25)))))
 
