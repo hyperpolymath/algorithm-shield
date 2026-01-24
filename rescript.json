@@ -15,7 +15,8 @@
   ],
   "suffix": ".res.js",
   "dependencies": [
-    "@rescript/core"
+    "@rescript/core",
+    "@hyperpolymath/proven-rescript"
   ],
   "warnings": {
     "error": "+101+8"

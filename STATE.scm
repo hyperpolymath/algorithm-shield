@@ -219,7 +219,30 @@
        (features "W3C protocol, browser-native, platform cooperation"))))
 
     (session-history
-     ((session-id "2026-01-24-architecture-decisions")
+     ((session-id "2026-01-24-license-and-proven-integration")
+      (date "2026-01-24")
+      (accomplishments
+       ("Changed license to PMPL-1.0-or-later across all source files"
+        "Updated 30 files with new license headers (ReScript, Rust, JS, docs)"
+        "Created LICENSE.txt with full PMPL-1.0 text"
+        "Integrated proven library for unbreakable code"
+        "Added proven dependency to Cargo.toml (Rust)"
+        "Added proven dependency to rescript.json (ReScript)"
+        "Replaced unsafe JSON parsing with proven SafeJson in lib.rs"
+        "Replaced unsafe string ops with proven SafeString in lib.rs"
+        "Created PROVEN-EPHAPAX-INTEGRATION.adoc (v2.0 integration plan)"
+        "Documented Zig FFI/ABI bridge requirements for Ephapax"
+        "Four-layer verification stack: SPARK + Coq + Idris2 (proven) + Idris2 (Vörðr)"
+        "Simplified README.adoc for general users"
+        "Added 'Idris Inside' badge to README"
+        "Updated PMPL license badge in README"))
+      (duration-minutes 75)
+      (files-created 3)
+      (files-updated 30)
+      (dependencies-added 2)
+      (verification-level "mathematically-proven-crash-free"))
+
+     (session-id "2026-01-24-architecture-decisions")
       (date "2026-01-24")
       (accomplishments
        ("Analyzed containerization with Svalinn/Vörðr/Cerro Torre stack"

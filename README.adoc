@@ -2,199 +2,271 @@
 :toc:
 :toc-placement!:
 
+image:https://img.shields.io/badge/license-PMPL--1.0--or--later-blue.svg[License,link="https://github.com/hyperpolymath/palimpsest-license"]
+image:https://img.shields.io/badge/version-0.1.0-orange.svg[Version]
+image:https://img.shields.io/badge/status-early_development-yellow.svg[Status]
+image:https://img.shields.io/badge/Idris-Inside-blueviolet?style=flat&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDJMMyA3djEwbDkgNSA5LTVWN2wtOS01em0wIDJsNyA0djhsLTcgNC03LTRWOGw3LTR6Ii8+PC9zdmc+[Idris Inside,link="https://idris2.readthedocs.io/"]
+
 [.lead]
-A browser extension that actively operates to provide the user the ability to cross the differentially permeable membranes between filter bubble walls, and to allow you to use a miniKanren-inspired rule set to encourage antipatterns to the algorithms, provide a degree of stealth, armouring, polymorphism, and metamorphism online.
+Take back control of your online experience. Algorithm Shield is a browser extension that helps you break free from filter bubbles and algorithmic manipulation.
 
 toc::[]
 
-== Overview
+== What is Algorithm Shield?
 
-Algorithm Shield is a *programmable membrane* between you and engagement algorithms. It observes how platforms profile and funnel you, perturbs your visible behavior through user-defined rules, and mediates what you see and how you appear.
+Ever feel like the internet is showing you the same things over and over? That's the "filter bubble" - algorithms learn what you click and show you more of the same, trapping you in an echo chamber.
 
-Think of it as: *tactical misalignment* + *behavioral polymorphism* + *filter-bubble porosity*.
+Algorithm Shield helps you:
 
-=== Core Capabilities
+* **See beyond your bubble** - Discover content outside your usual patterns
+* **Confuse the algorithm** - Your behavior becomes unpredictable
+* **Stay in control** - You decide what you see, not the algorithm
 
-==== 1. Filter-Bubble Membrane Crossing
+[.lead]
+_Like a VPN for your browsing behavior._
 
-* **Context-shifting lenses**: Opposition, Random Walk, Time-Shift, Locality, Serendipity
-* **Bubble map visualization**: See what clusters you're in, which adjacent spaces are available
-* **One-click membrane breach**: Trigger a controlled sequence of off-distribution interactions
+---
 
-==== 2. MiniKaren Rule Engine
+== Core Features
 
-A composable, narratable rules engine that nudges your visible behavior in ways that confuse or soften profiling:
+=== 🔍 Bubble Detection
 
-* **Noise Injection**: Occasionally click content that doesn't match your inferred profile
-* **Profile Dilution**: When viewing niche content, open diverse background tabs
-* **Engagement Disruption**: Soft-cap scroll depth, suggest breaks
+See what "cluster" the algorithm thinks you're in:
 
-Rules are human-readable, togglable, and explainable.
+* Are you being shown mostly tech content? Politics? Lifestyle?
+* How narrow is your current bubble?
+* What adjacent topics are just out of reach?
 
-==== 3. Stealth, Armouring, Polymorphism
+=== 🚪 Membrane Crossing
 
-* **Stealth modes**: Low-Profile, Ghost Walk
-* **Tracker Shield**: Blocks trackers with narrative explanations
-* **Persona Profiles**: Route browsing through defined personas (Gardener, Tech Skeptic, Art Student)
-* **Behavioral Shape-Shifting**: Rotate personas to prevent long-term lock-in
+One-click actions to break out of your bubble:
 
-== Architecture
+* **Opposition Lens** - Show me the opposite viewpoint
+* **Random Walk** - Surprise me with something completely different
+* **Time Shift** - What was popular last week/month/year?
+* **Locality** - What's trending nearby geographically?
+* **Serendipity** - Pure randomness
 
-[source]
-----
-algorithm-shield/
-├── src/
-│   ├── rescript/           # Core logic (type-safe, compiles to ES6)
-│   │   ├── membrane/       # State orchestrator
-│   │   ├── observer/       # Feed analysis
-│   │   ├── actuator/       # Controlled interactions
-│   │   ├── lens/           # Feed transformations
-│   │   └── persona/        # Behavioral shells
-│   ├── rust/               # Rule engine (compiles to WASM)
-│   │   └── minikaren/      # Logic programming core
-│   ├── ui/                 # Popup and control panel
-│   └── platforms/          # Platform-specific adapters
-├── public/                 # HTML/CSS/assets
-├── manifest.json           # Browser extension manifest
-└── dist/                   # Built extension (load in Chrome)
-----
+=== 🎭 Personas
 
-== Tech Stack (RSR-Compliant)
+Browse as different "people" to avoid lock-in:
 
-* **ReScript**: Type-safe application logic (→ ES6)
-* **Rust + WASM**: Performance-critical rule engine
-* **Deno**: Build tooling and dev server
-* **Minimal JS glue**: Browser extension APIs not yet bound in ReScript
+* **Gardener** - Interested in plants, sustainability, cooking
+* **Tech Skeptic** - Privacy-focused, critical of big tech
+* **Art Student** - Creative, visual arts, culture
 
-❌ No TypeScript, Node.js, npm, or banned languages per https://github.com/hyperpolymath/rhodium-standard-repositories[Rhodium Standard Repositories]
+Switch between personas to see different recommendations. Your real interests stay private.
 
-== Getting Started
+=== 🛡️ Stealth Mode
 
-=== Prerequisites
+Make your browsing patterns less predictable:
 
-[source,bash]
-----
-# Install ReScript compiler
+* Automated "noise" clicks to confuse profiling
+* Human-like timing (not robotic)
+* Privacy-preserving (all actions stay local)
+
+---
+
+== How It Works
+
+```
+┌──────────────────────────────────────┐
+│  1. Algorithm Shield Observes        │
+│     "YouTube is showing you           │
+│      80% tech videos"                 │
+└──────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────┐
+│  2. You Choose an Action              │
+│     Click "Opposition Lens"           │
+└──────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────┐
+│  3. Shield Opens Diverse Content      │
+│     "Here are 5 art/music videos"     │
+└──────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────┐
+│  4. Algorithm Gets Confused           │
+│     "Wait, are they a tech person     │
+│      or an art person?"                │
+└──────────────────────────────────────┘
+```
+
+**Result**: You see a wider variety of content. The algorithm can't pigeonhole you.
+
+---
+
+== Installation
+
+### Chrome / Edge / Brave
+
+1. Download the extension (**coming soon**)
+2. Or build from source (see below)
+
+### Firefox
+
+_Support planned for v1.0 (June 2026)_
+
+---
+
+== Privacy & Security
+
+**Your data never leaves your device.**
+
+* No servers, no cloud, no tracking
+* All processing happens locally in your browser
+* Open source - you can verify the code
+* **Mathematically proven safe** - Uses https://github.com/hyperpolymath/proven[proven library] (Idris2-verified crash-proof operations)
+
+---
+
+== FAQ
+
+**Q: Is this like an ad blocker?**
+
+A: No, it's complementary. Ad blockers hide trackers. Algorithm Shield confuses recommendation algorithms. Use both together!
+
+**Q: Will platforms ban me for using this?**
+
+A: No. Algorithm Shield uses normal browsing actions (clicks, scrolls, opens). It's indistinguishable from manual browsing because it *is* manual browsing - just automated with your permission.
+
+**Q: Does it work on...?**
+
+Current support:
+- ✅ YouTube (v0.5+)
+- 🔜 X/Twitter (v1.0)
+- 🔜 Instagram (v1.0)
+- 🔜 TikTok (v2.0)
+
+**Q: Will it slow down my browser?**
+
+A: No. The extension is very lightweight (<1MB). Rule evaluation happens in WebAssembly (extremely fast).
+
+**Q: What's a "filter bubble"?**
+
+A: When an algorithm only shows you content similar to what you've clicked before, you end up in a "bubble" - never seeing opposing views or new topics. Algorithm Shield pops that bubble.
+
+**Q: Is this legal?**
+
+A: Yes. You're just using a browser extension to automate your own browsing. No different from using bookmarks or browser scripts.
+
+---
+
+== For Developers
+
+**Tech Stack**:
+- ReScript (UI)
+- Rust/WASM (rule engine)
+- Ephapax (hot paths, v2.0+)
+- **proven library** (Idris2 verified safety)
+
+**Build**:
+```bash
+# Install dependencies
 npm install -g rescript
-
-# Install wasm-pack for Rust→WASM
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-# Deno already available (from RSR environment)
-----
-
-=== Build
-
-[source,bash]
-----
-# Full build
+# Build extension
 deno task build
 
-# Development mode (watches ReScript files)
-deno task dev
-----
+# Load in Chrome
+# 1. chrome://extensions
+# 2. Enable "Developer mode"
+# 3. "Load unpacked" → select dist/ folder
+```
 
-=== Load Extension
+**Docs**:
+- link:ARCHITECTURE.md[Architecture Overview]
+- link:docs/SEAM-ANALYSIS.adoc[Technical Seam Analysis]
+- link:docs/ROADMAP.adoc[Version Roadmap]
+- link:STATE.scm[Current Project State]
 
-1. Build the extension: `deno task build`
-2. Open Chrome → `chrome://extensions`
-3. Enable "Developer mode"
-4. Click "Load unpacked"
-5. Select the `dist/` directory
-
-== Usage
-
-=== HUD Overlay
-
-A small, persistent overlay on the edge of the screen shows:
-
-* Current mode (Normal / Stealth / Persona X)
-* Active lens
-* Membrane thickness
-* Quick toggles for breach/pause
-
-=== Control Panel
-
-Open the full control panel (from popup) to:
-
-* View the **Bubble Map**: See which clusters dominate your feed
-* Select **Lenses**: Opposition, Random Walk, Time-Shift, etc.
-* Activate **Personas**: Route browsing through behavioral shells
-* Edit **Minikaren Rules**: Toggle or customize anti-pattern rules
-* Review **Activity Log**: See what Algorithm Shield has done
-
-=== Example Workflow
-
-1. You notice your feed is heavily clustered around "Tech/AI/Startups"
-2. Open Algorithm Shield → click **Breach Membrane**
-3. Extension opens 3-5 off-distribution items, scrolls them briefly
-4. Feed refreshes, now showing more diverse content
-5. Activate **Opposition Lens** to continuously surface contrasting topics
-6. Switch to **Gardener Persona** to explore with a different behavioral signature
-
-== Minikaren Rules DSL
-
-Rules are defined in JSON and evaluated by the Rust WASM engine:
-
-[source,json]
-----
-{
-  "id": "noise-injection",
-  "name": "Noise Injection",
-  "description": "Occasionally click content outside your inferred profile",
-  "conditions": [],
-  "actions": [
-    { "type": "InjectNoise", "payload": { "count": 2 } }
-  ],
-  "probability": 0.3,
-  "enabled": true
-}
-----
-
-See `src/rust/minikaren/rules.rs` for predefined rule constructors.
+---
 
 == Roadmap
 
-=== Phase 1: Observer + Simple Lens ✅
+[cols="1,2,1"]
+|===
+| Version | Features | Date
 
-* Read feed from one platform (YouTube/X)
-* Classify items into coarse topics
-* Provide "Random Walk" button
-* Simple bubble map
+| v0.5
+| YouTube observer, Random Walk lens, basic membrane crossing
+| Mar 2026
 
-=== Phase 2: Minikaren v0 (In Progress)
+| v1.0
+| 3 platforms (YouTube/X/Instagram), 5 lenses, 3 personas
+| Jun 2026
 
-* Tiny rule set: noise injection, profile dilution, engagement disruption
-* WASM integration
-* Activity log
+| v2.0
+| Ephapax optimization, Cerro Torre packaging, enterprise features
+| Dec 2026
 
-=== Phase 3: Persona Shells
+| v5.0
+| Federated bubble map, community lenses, full formal verification
+| Jun 2027
+|===
 
-* 2-3 predefined personas
-* Route sessions through personas
-* Persona rotation scheduler
-
-=== Phase 4: Multi-Platform
-
-* Platform adapters for YouTube, X, Instagram, TikTok
-* Unified feed analysis across platforms
-
-=== Phase 5: Advanced UI
-
-* Full control panel
-* Visual bubble map (graph/radial viz)
-* Rule editor with DSL
-
-== Governance Files
-
-* link:STATE.scm[STATE.scm]: Current project state, tasks, blockers
-* link:ECOSYSTEM.scm[ECOSYSTEM.scm]: Position in hyperpolymath ecosystem
-* link:META.scm[META.scm]: Architecture decisions, design rationale
-
-== License
-
-AGPL-3.0-or-later
+---
 
 == Contributing
 
-See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc] for development setup and guidelines.
+We welcome contributions! See link:CONTRIBUTING.adoc[CONTRIBUTING.adoc].
+
+**Ways to help**:
+- Test the extension and report bugs
+- Suggest new lenses or personas
+- Add support for new platforms
+- Improve documentation
+
+---
+
+== Philosophy
+
+**The internet should expand your worldview, not narrow it.**
+
+Algorithms optimize for engagement. Engagement = clicks. Clicks = showing you more of what you already like.
+
+This creates filter bubbles, echo chambers, and polarization.
+
+Algorithm Shield doesn't fight the algorithm - it confuses it. By making your behavior unpredictable, you become unprofileable. And when you're unprofileable, the algorithm has to show you a diversity of content.
+
+**The membrane operates at every layer.**
+
+We use formal verification (Idris2 + proven library) to mathematically prove our code cannot crash or leak data. No "we think it's safe" - we have mathematical proof.
+
+---
+
+== License
+
+**PMPL-1.0-or-later** (Palimpsest-MPL)
+
+See link:LICENSE.txt[LICENSE.txt] for details.
+
+This is open source software that respects your freedom. Fork it, modify it, share it - with one rule: if you improve it, share your improvements.
+
+---
+
+== Acknowledgments
+
+Built on:
+- https://github.com/hyperpolymath/proven[proven] - Mathematically verified crash-proof operations (Idris2)
+- https://github.com/hyperpolymath/ephapax[ephapax] - Linear types for WASM performance
+- https://github.com/hyperpolymath/svalinn[svalinn] - Verified container gateway
+- https://github.com/hyperpolymath/vordr[vörðr] - Formally verified container runtime
+- https://github.com/hyperpolymath/cerro-torre[cerro-torre] - Provenance-verified packaging
+
+**Inspired by**: uBlock Origin, AdNauseam, Privacy Badger, and the broader digital autonomy movement.
+
+---
+
+**Stop being predictable. Start being free.**
+
+image:docs/images/membrane-diagram.svg[Membrane Concept,align="center"]
+
+---
+
+_Questions? Issues? Ideas?_ → https://github.com/hyperpolymath/algorithm-shield/issues

@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
+// Copyright (c) 2026 hyperpolymath
+// Part of Algorithm Shield - https://github.com/hyperpolymath/algorithm-shield
+
 // YouTube platform adapter - DOM signal extraction
 
 // YouTube-specific DOM selectors (as of 2026-01)

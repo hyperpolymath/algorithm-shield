@@ -1,7 +1,12 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
+// Copyright (c) 2026 hyperpolymath
+// Part of Algorithm Shield - https://github.com/hyperpolymath/algorithm-shield
 // WASM entry point for Algorithm Shield rule engine
+// Uses proven library for unbreakable JSON parsing
 
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
+use proven::{SafeJson, SafeString};
 
 mod minikaren;
 
@@ -18,20 +23,23 @@ impl RuleEngine {
     }
 
     pub fn add_rule(&mut self, rule_json: &str) -> Result<(), JsValue> {
-        let rule: minikaren::Rule = serde_json::from_str(rule_json)
-            .map_err(|e| JsValue::from_str(&format!("Parse error: {}", e)))?;
+        // Use proven SafeJson for crash-proof parsing
+        let rule: minikaren::Rule = SafeJson::parse(rule_json)
+            .map_err(|e| JsValue::from_str(&format!("JSON parse error: {}", e)))?;
         self.rules.push(rule);
         Ok(())
     }
 
     pub fn evaluate(&self, context_json: &str) -> Result<String, JsValue> {
-        let context: minikaren::Context = serde_json::from_str(context_json)
-            .map_err(|e| JsValue::from_str(&format!("Parse error: {}", e)))?;
+        // Use proven SafeJson for crash-proof parsing
+        let context: minikaren::Context = SafeJson::parse(context_json)
+            .map_err(|e| JsValue::from_str(&format!("JSON parse error: {}", e)))?;
 
         let actions = minikaren::evaluate_rules(&self.rules, &context);
 
-        serde_json::to_string(&actions)
-            .map_err(|e| JsValue::from_str(&format!("Serialize error: {}", e)))
+        // Use proven SafeJson for crash-proof serialization
+        SafeJson::stringify(&actions)
+            .map_err(|e| JsValue::from_str(&format!("JSON serialize error: {}", e)))
     }
 
     pub fn narrate_rules(&self) -> String {

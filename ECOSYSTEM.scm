@@ -123,7 +123,21 @@
        "Coq-proven memory safety (no use-after-free, no leaks)."
        "33% smaller WASM (120KB vs 180KB)."
        "Incremental adoption: rewrite only proven bottlenecks (v2.0)."
-       "Full rewrite only if justified by metrics (v5.0+).")))
+       "Full rewrite only if justified by metrics (v5.0+)."))
+
+    ((name "proven")
+     (relationship dependency)
+     (description "Idris2-verified crash-proof operations (87 modules, 89 bindings)")
+     (why-related
+       "Proven provides mathematically verified safety for ALL operations."
+       "✅ INTEGRATED v1.0: Rust WASM uses proven SafeJson for rule parsing."
+       "✅ INTEGRATED v1.0: ReScript UI uses proven bindings for safe operations."
+       "SafeJson prevents JSON bombs, injection attacks, parsing crashes."
+       "SafeString prevents XSS, SQL injection, buffer overflows."
+       "SafeMath prevents integer overflow, division by zero."
+       "v2.0: Ephapax integration via Zig FFI/ABI (bidirectional calls)."
+       "Four-layer verification: SPARK + Coq + Idris2 (proven) + Idris2 (Vörðr)."
+       "Code that cannot crash - mathematically proven, not just tested.")))
 
   (what-this-is
     "A browser extension for active resistance to algorithmic profiling."

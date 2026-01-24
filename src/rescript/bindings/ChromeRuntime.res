@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: PMPL-1.0-or-later
+// Copyright (c) 2026 hyperpolymath
+// Part of Algorithm Shield - https://github.com/hyperpolymath/algorithm-shield
 // ReScript bindings for chrome.runtime API
 
 type message
