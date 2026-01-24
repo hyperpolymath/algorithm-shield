@@ -96,7 +96,77 @@
        (consequences
         "Positive: User trust, transparency, safety."
         "Negative: More friction, can't be fully automated."
-        "Mitigation: Make consent process smooth, allow 'always allow' for trusted rules."))))
+        "Mitigation: Make consent process smooth, allow 'always allow' for trusted rules."))
+
+      (adr-007
+       (status accepted)
+       (date "2026-01-24")
+       (title "Hybrid Ephapax/Rust architecture (incremental adoption)")
+       (context
+        "Rule engine performance could be improved via Ephapax's linear types and region-based memory."
+        "Ephapax offers 1.8-3× speedup potential via O(1) bulk deallocation and Coq-proven memory safety."
+        "However, complete rewrite is high-risk and takes 9+ months."
+        "Ephapax is early-stage (stdlib still planned)."
+        "Current Rust implementation works (180KB WASM, 5ms/rule).")
+       (decision
+        "v1.0: Ship pure Rust implementation, collect performance metrics."
+        "v2.0: Hybrid approach - rewrite ONLY hot paths (20%) in Ephapax, keep Rust for glue (80%)."
+        "Profile-guided optimization: rewrite only proven bottlenecks (condition evaluation, action generation)."
+        "v5.0+: Evaluate full rewrite only if metrics justify it AND Ephapax stdlib is mature."
+        "Integration: Package with Cerro Torre (.ctp), run in Vörðr containers, validate via Svalinn gateway.")
+       (consequences
+        "Positive: Low-risk incremental adoption, 1.8× speedup for 2 months work, Coq proofs for critical paths."
+        "Positive: Deepest formal verification stack (SPARK + Coq + Idris2 + Idris2)."
+        "Positive: 20% smaller WASM (140KB vs 180KB), 75% less memory per container (64MB vs 256MB)."
+        "Negative: FFI overhead (~0.1ms per boundary), team must learn linear types."
+        "Negative: Ephapax ecosystem immature (stdlib planned, but not ready)."
+        "Mitigation: Use right tool for each job - Ephapax for tight loops, Rust for FFI/I/O/serialization."
+        "Mitigation: Incremental learning - start with 3 rules, expand as team gains fluency."))
+
+      (adr-008
+       (status accepted)
+       (date "2026-01-24")
+       (title "Integration with Svalinn/Vörðr/Cerro Torre verified container stack")
+       (context
+        "Browser extension sandbox provides basic isolation but no formal guarantees."
+        "Svalinn (edge gateway), Vörðr (container runtime), Cerro Torre (provenance builder) are existing hyperpolymath repos."
+        "Stack provides formal verification: SPARK (Cerro Torre), Idris2 (Vörðr), Coq (Ephapax)."
+        "Could improve security, dependability, and enterprise adoption.")
+       (decision
+        "v2.0: Package WASM with Cerro Torre (.ctp bundles) for cryptographic provenance."
+        "v2.0 (Enterprise): Optional Svalinn gateway for policy enforcement, OAuth2/SSO integration."
+        "v5.0: Run WASM in Vörðr containers for Idris2-proven state transitions and reversibility."
+        "Bundle Coq proofs with .ctp for mathematical verification of memory safety.")
+       (consequences
+        "Positive: Cryptographic provenance (threshold signing, reproducible builds)."
+        "Positive: Formal verification stack (SPARK crypto + Coq memory + Idris2 states)."
+        "Positive: Enterprise compliance (policy enforcement, audit logs, SSO)."
+        "Positive: BEAM fault tolerance (Elixir supervision trees) for crash recovery."
+        "Positive: Bennett-reversible operations (rollback bad rules)."
+        "Negative: 10-20% performance overhead (IPC + verification)."
+        "Negative: Increased complexity (3-layer stack vs simple extension)."
+        "Mitigation: Make containerization optional (v1.0 works standalone, v2.0+ adds container support)."
+        "Mitigation: Enterprise features justify overhead (SMB/enterprise market)."))
+
+      (adr-009
+       (status proposed)
+       (date "2026-01-24")
+       (title "Profile-guided optimization over premature optimization")
+       (context
+        "Performance optimization should be data-driven."
+        "Don't know which operations are actually slow until measured in production."
+        "80/20 rule: 20% of code accounts for 80% of runtime.")
+       (decision
+        "v1.0: Ship MVP, instrument for performance metrics (timing, memory, WASM size)."
+        "Collect 3+ months of real-world data before optimizing."
+        "Identify top 3 slowest operations via profiling."
+        "Optimize only proven bottlenecks (profile-guided, not speculation-driven)."
+        "Benchmark all optimizations (must show ≥30% improvement to justify).")
+       (consequences
+        "Positive: Data-driven decisions, avoid wasted effort on non-bottlenecks."
+        "Positive: Focus engineering time on user-visible improvements."
+        "Negative: Can't claim 'fastest' from day one."
+        "Mitigation: Current Rust perf is 'good enough' for v1.0, optimize later based on data."))))
 
     (development-practices
      (code-style

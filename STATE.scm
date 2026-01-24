@@ -194,8 +194,19 @@
 
       (v2.0
        (target-date "2026-12-01")
-       (goal "Distributed personas")
-       (features "Persona sync, encrypted export, marketplace"))
+       (goal "Hybrid architecture + containerization")
+       (features
+        "Ephapax hot path optimization (condition evaluation, action generation)"
+        "Cerro Torre .ctp packaging (cryptographic provenance)"
+        "Svalinn gateway integration (enterprise policy enforcement)"
+        "Persona sync, encrypted export, marketplace")
+       (performance-targets
+        "1.8× faster rule evaluation (hybrid Ephapax/Rust)"
+        "140KB WASM (down from 180KB)"
+        "Profile-guided: optimize only proven bottlenecks")
+       (tech-stack
+        "ReScript (UI), Rust (glue/FFI), Ephapax (hot paths)"
+        "Cerro Torre (packaging), Svalinn (gateway), Vörðr (runtime)"))
 
       (v5.0
        (target-date "2027-06-01")
@@ -208,7 +219,30 @@
        (features "W3C protocol, browser-native, platform cooperation"))))
 
     (session-history
-     ((session-id "2026-01-24-tasks-1-2-4-complete")
+     ((session-id "2026-01-24-architecture-decisions")
+      (date "2026-01-24")
+      (accomplishments
+       ("Analyzed containerization with Svalinn/Vörðr/Cerro Torre stack"
+        "Created CONTAINERIZATION-ANALYSIS.adoc (end-to-end architecture)"
+        "Evaluated Ephapax performance benefits (1.8× speedup, 33% smaller WASM)"
+        "Created EPHAPAX-PERFORMANCE.adoc (benchmarks, Coq proofs, parallel eval)"
+        "Created EPHAPAX-MIGRATION-STRATEGY.adoc (incremental hybrid approach)"
+        "DECISION: Hybrid Ephapax/Rust (not complete rewrite)"
+        "v1.0: Pure Rust (ship MVP, collect metrics)"
+        "v2.0: 20% Ephapax for hot paths, 80% Rust for glue (2 months, 1.8× speedup)"
+        "v5.0+: Evaluate full rewrite only if justified by metrics"
+        "Added Svalinn, Vörðr, Cerro Torre, Ephapax to ECOSYSTEM.scm"
+        "Updated v2.0 roadmap with containerization + performance targets"
+        "Formal verification stack: SPARK + Coq + Idris2 (deepest in browser history)"))
+      (duration-minutes 90)
+      (files-created 3)
+      (architectural-decisions
+       ("Incremental Ephapax adoption (profile-guided optimization)"
+        "No complete rewrite (80/20 rule: optimize hot paths only)"
+        "Integration with verified container ecosystem (Svalinn/Vörðr/Cerro Torre)"
+        "Hybrid architecture: ReScript (UI) + Rust (FFI) + Ephapax (core)")))
+
+     (session-id "2026-01-24-tasks-1-2-4-complete")
       (date "2026-01-24")
       (accomplishments
        ("Task 1: Mapped YouTube DOM structure"
