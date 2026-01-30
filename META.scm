@@ -1,3 +1,4 @@
+;; SPDX-License-Identifier: MPL-2.0-or-later
 ;; META.scm - Meta-level information for Algorithm Shield
 ;; Media Type: application/meta+scheme
 

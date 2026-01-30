@@ -1,3 +1,4 @@
+;; SPDX-License-Identifier: MPL-2.0-or-later
 ;; STATE.scm - Current project state for Algorithm Shield
 ;; Media Type: application/vnd.state+scm
 

@@ -1,3 +1,4 @@
+;; SPDX-License-Identifier: MPL-2.0-or-later
 ;; ECOSYSTEM.scm - Algorithm Shield's position in the hyperpolymath ecosystem
 ;; Media Type: application/vnd.ecosystem+scm
 
